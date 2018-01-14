@@ -1,0 +1,41 @@
+<div align=center>
+  <%= link("Module",
+    to: "#{@conn.request_path}?for=module",
+    class: "btn #{unless @conn.query_params["for"] == "trace", do: "active"}",
+    style: "background-color: #e7e7e7; font-size: 20px;")
+  %>
+  <%= link("Trace",
+    to: "#{@conn.request_path}?for=trace",
+    class: "btn #{if @conn.query_params["for"] == "trace", do: "active"}",
+    style: "background-color: #e7e7e7; font-size: 20px;")
+  %>
+<div>
+
+<table class="table">
+  <tr>
+    <th>Function</th>
+    <th>
+      <%= link("Total query time (ms)",
+        to: "#{@conn.request_path}?order=time&for=trace",
+        class: "btn #{if @conn.query_params["order"] == "time", do: "active"}",
+        style: "background-color: #e7e7e7;")
+      %>
+    </th> 
+    <th>
+      <%= link("Calls",
+        to: "#{@conn.request_path}?order=calls&for=trace",
+        class: "btn #{unless @conn.query_params["order"] == "time", do: "active"}",
+        style: "background-color: #e7e7e7;")
+      %>
+    </th>
+    <th>Trace</th>
+  </tr>
+  <%= for {_, trace, {module_name, func, arity}, query_time, calls} <- @data do %>
+    <tr>
+      <td><%= full_module_name(module_name, func, arity) %></td>
+      <td><%= query_time %></td>
+      <td><%= calls %></td>
+      <td><%= raw pretty_trace(trace) %></td>
+    </tr>
+  <% end %>
+</table>
