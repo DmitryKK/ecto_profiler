@@ -1,10 +1,10 @@
 defmodule EctoProfiler.LayoutView do
   use EctoProfiler.Web, :view
 
-  @module Application.get_env(:ecto_profiler, :module)
+  @page_title Application.get_env(:ecto_profiler, :page_title)
 
   def site_title do
-    case @module && @module |> Module.split do
+    case @page_title && @page_title |> Module.split do
       [_, title | _] -> title
       [title] -> title
       _ -> "Ecto Profiler"
