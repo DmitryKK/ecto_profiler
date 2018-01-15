@@ -2,10 +2,17 @@ defmodule EctoProfiler.ModuleHandler do
   @moduledoc """
   Documentation for EctoProfiler.
   """
+
   use EctoProfiler.Helper
 
   @root_module EctoProfiler
 
+  @doc """
+  Handler for data. Checks all modules and selects only those which you have defined in your application.
+  It writes data to mnesia `FunctionProfiler` table.
+  """
+
+  @spec handle([tuple()], [module()], Ecto.LogEntry.t) :: :ok
   def handle(trace_list, modules_list, entry) do
     Enum.each(trace_list, fn({module, func, arity, _}) -> 
       if Enum.member?(modules_list -- [@root_module], module) do

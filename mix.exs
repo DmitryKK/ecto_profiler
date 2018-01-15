@@ -12,6 +12,7 @@ defmodule EctoProfiler.Mixfile do
       compilers: [:phoenix] ++ Mix.compilers,
       source_url: @project_url,
       homepage_url: @project_url,
+      package: package(),
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
       description: "Project for Ecto DB profiling",
@@ -35,7 +36,18 @@ defmodule EctoProfiler.Mixfile do
   defp deps do
     [
       {:phoenix, "~> 1.2"},
-      {:phoenix_html, "~> 2.6"}
+      {:phoenix_html, "~> 2.6"},
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
+      {:ex_doc, "~> 0.16", only: [:dev], runtime: false}
+    ]
+  end
+
+  defp package do
+    [
+      maintainers: ["Dmitry Krakosevich"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => @project_url},
+      files: ~w(mix.exs README* lib)
     ]
   end
 end

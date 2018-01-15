@@ -1,14 +1,20 @@
 defmodule EctoProfiler do
   @moduledoc """
-  Documentation for EctoProfiler.
+  Main EctoProfiler module.
   """
 
   use Application
+
+  @doc """
+  Function in the global scope. Starts process with mnesia.
+  It includes handler for log.
+  """
 
   alias EctoProfiler.{TraceHandler, ModuleHandler, Mnesia, Interface}
 
   @main_app_name Application.get_env(:ecto_profiler, __MODULE__)[:app_name]
 
+  @spec get_data(params :: [{:order_by, atom()}, {:force, atom()}]) :: [tuple()]
   defdelegate get_data(params), to: Interface
 
   def start(_type, _args) do
@@ -21,6 +27,7 @@ defmodule EctoProfiler do
     ], strategy: :one_for_one)
   end
 
+  @spec log(Ecto.LogEntry.t) :: :ok | nil
   def log(entry) do
     with {:current_stacktrace, trace_list} <- Process.info(self(), :current_stacktrace),
          {:ok, modules_list} <- :application.get_key(@main_app_name, :modules)

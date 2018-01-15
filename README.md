@@ -64,6 +64,8 @@ Visit http://localhost:4000/profiling
 
 You should see page with current profiling.
 
+## Documentation
+
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/ecto_profiler](https://hexdocs.pm/ecto_profiler).

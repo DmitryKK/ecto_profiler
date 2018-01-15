@@ -1,6 +1,16 @@
 defmodule EctoProfiler.Interface do
   @moduledoc false
 
+  @doc """
+  Interface for access to profiling data in the global scope. Starts process with mnesia.
+  It includes handler for log with one function `get_data`.
+
+  Function accept one keyword argument with elements above:
+
+    * order_by - must be `:time` or `:calls`
+    * for - must be `:module` or `:trace`
+  """
+
   def get_data(order_by: :time, for: :module) do
     with {:atomic, list} <- :mnesia.transaction(fn -> :mnesia.match_object({FunctionProfiler, :_, :_, :_}) end) do
       Enum.sort(list, fn({_, _, time_1, _}, {_, _, time_2, _}) -> time_1 >= time_2 end)

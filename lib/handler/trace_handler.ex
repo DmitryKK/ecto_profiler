@@ -2,10 +2,17 @@ defmodule EctoProfiler.TraceHandler do
   @moduledoc """
   Documentation for EctoProfiler.
   """
+
   use EctoProfiler.Helper
 
   @root_module EctoProfiler
 
+  @doc """
+  Handler for data. Checks all modules and selects only first module of yours app in trace list.
+  It writes data to mnesia `TraceProfiler` table.
+  """
+
+  @spec handle([tuple()], [module()], Ecto.LogEntry.t) :: {:atomic, nonempty_list(tuple())}
   def handle(trace_list, modules_list, entry) do
     Enum.reverse(trace_list)
     |> Enum.find(fn({module, _, _, _}) -> Enum.member?(modules_list -- [@root_module], module) end)
