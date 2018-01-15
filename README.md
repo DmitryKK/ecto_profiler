@@ -1,5 +1,10 @@
 # EctoProfiler
 
+[![Hex Version][hex-img]][hex]
+
+[hex-img]: https://img.shields.io/hexpm/v/ecto_profiler.svg
+[hex]: https://hex.pm/packages/ecto_profiler
+
 Project for Ecto DB profiling
 
 ## Installation
