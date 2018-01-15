@@ -52,7 +52,7 @@ Project for Ecto DB profiling
     timeout: 15_000,
     pool_timeout: 15_000,
     ownership_timeout: 15_000,
-    loggers: [{Ecto.LogEntry, :log, []}, {EctoProfiler, :log, []}]
+    loggers: [{EctoProfiler, :log, []}]
   ```
 
   5. Add the profiling route to the router file `web/router.ex`:

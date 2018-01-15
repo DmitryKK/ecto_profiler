@@ -12,12 +12,14 @@ defmodule EctoProfiler.TraceHandler do
   It writes data to mnesia `TraceProfiler` table.
   """
 
-  @spec handle([tuple()], [module()], Ecto.LogEntry.t) :: {:atomic, nonempty_list(tuple())}
+  @spec handle([tuple()], [module()], Ecto.LogEntry.t) :: {:atomic, nonempty_list(tuple())} | nil
   def handle(trace_list, modules_list, entry) do
     Enum.reverse(trace_list)
     |> Enum.find(fn({module, _, _, _}) -> Enum.member?(modules_list -- [@root_module], module) end)
     |> write_profiling_data(entry.query_time, trace_list)
   end
+
+  defp write_profiling_data(nil, _, _), do: nil
 
   defp write_profiling_data({module, func, arity, _}, extra_query_time, trace) do
     with {:atomic, [{TraceProfiler, _, _, query_time, calls}]}
