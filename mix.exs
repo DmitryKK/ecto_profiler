@@ -6,7 +6,7 @@ defmodule EctoProfiler.Mixfile do
   def project do
     [
       app: :ecto_profiler,
-      version: "0.1.1",
+      version: "0.1.2",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix] ++ Mix.compilers,

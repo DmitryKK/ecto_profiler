@@ -55,6 +55,12 @@ Project for Ecto DB profiling
     loggers: [{EctoProfiler, :log, []}]
   ```
 
+  5. Maximize stacktrace depth for phoenix in your configuration file. Default value for dev is 20, for prod is 8. But it is litle depth and you should increase this, for example:
+
+  ```elixir
+  config, :phoenix, :stacktrace_depth, 50
+  ```
+
   5. Add the profiling route to the router file `web/router.ex`:
 
   ```elixir

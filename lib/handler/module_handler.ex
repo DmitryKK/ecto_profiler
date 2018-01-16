@@ -14,7 +14,7 @@ defmodule EctoProfiler.ModuleHandler do
 
   @spec handle([tuple()], [module()], Ecto.LogEntry.t) :: :ok
   def handle(trace_list, modules_list, entry) do
-    Enum.each(trace_list, fn({module, func, arity, _}) -> 
+    Enum.each(trace_list, fn({module, func, arity, _}) ->
       if Enum.member?(modules_list -- [@root_module], module) do
         write_profiling_data({module, func, arity}, entry.query_time)
       end
