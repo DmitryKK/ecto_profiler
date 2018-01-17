@@ -1,11 +1,10 @@
 defmodule EctoProfiler.TraceHandler do
   @moduledoc """
-  Documentation for EctoProfiler.
+  It records all calls with the same trace in one record in the mnesia.
+  The calling module is the one where the first call happened.
   """
 
   use EctoProfiler.Helper
-
-  @root_module EctoProfiler
 
   @doc """
   Handler for data. Checks all modules and selects only first module of yours app in trace list.
@@ -15,7 +14,7 @@ defmodule EctoProfiler.TraceHandler do
   @spec handle([tuple()], [module()], Ecto.LogEntry.t) :: {:atomic, nonempty_list(tuple())} | nil
   def handle(trace_list, modules_list, entry) do
     Enum.reverse(trace_list)
-    |> Enum.find(fn({module, _, _, _}) -> Enum.member?(modules_list -- [@root_module], module) end)
+    |> Enum.find(fn({module, _, _, _}) -> Enum.member?(modules_list, module) end)
     |> write_profiling_data(entry.query_time, trace_list)
   end
 

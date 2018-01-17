@@ -61,7 +61,7 @@ Project for Ecto DB profiling
   config, :phoenix, :stacktrace_depth, 50
   ```
 
-  5. Add the profiling route to the router file `web/router.ex`:
+  6. Add the profiling route to the router file `web/router.ex`:
 
   ```elixir
   defmodule MyGreatApp.Router do

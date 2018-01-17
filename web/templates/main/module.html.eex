@@ -28,12 +28,20 @@
         style: "background-color: #e7e7e7;")
       %>
     </th>
+    <th>
+      <%= link("Average query time (ms)",
+        to: "#{@conn.request_path}?order=average&for=module",
+        class: "btn #{unless Enum.member?(["time", "calls"], @conn.query_params["order"]), do: "active"}",
+        style: "background-color: #e7e7e7;")
+      %>
+    </th>
   </tr>
   <%= for {_, {module_name, func, arity}, query_time, calls} <- @data do %>
     <tr>
       <td><%= full_module_name(module_name, func, arity) %></td>
       <td><%= query_time %></td>
       <td><%= calls %></td>
+      <td><%= average_query_time(query_time, calls) %></td>
     </tr>
   <% end %>
 </table>

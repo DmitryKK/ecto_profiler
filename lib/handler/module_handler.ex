@@ -1,11 +1,9 @@
 defmodule EctoProfiler.ModuleHandler do
   @moduledoc """
-  Documentation for EctoProfiler.
+  It records the call of each module of the application.
   """
 
   use EctoProfiler.Helper
-
-  @root_module EctoProfiler
 
   @doc """
   Handler for data. Checks all modules and selects only those which you have defined in your application.
@@ -15,7 +13,7 @@ defmodule EctoProfiler.ModuleHandler do
   @spec handle([tuple()], [module()], Ecto.LogEntry.t) :: :ok
   def handle(trace_list, modules_list, entry) do
     Enum.each(trace_list, fn({module, func, arity, _}) ->
-      if Enum.member?(modules_list -- [@root_module], module) do
+      if Enum.member?(modules_list, module) do
         write_profiling_data({module, func, arity}, entry.query_time)
       end
     end)

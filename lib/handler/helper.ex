@@ -9,6 +9,10 @@ defmodule EctoProfiler.Helper do
         us = System.convert_time_unit(time, :native, :micro_seconds)
         div(us, 100) / 10
       end
+
+      defp average(total_time, calls) do
+        total_time / calls |> Float.round(2)
+      end
     end
   end
 end
