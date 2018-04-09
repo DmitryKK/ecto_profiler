@@ -9,7 +9,6 @@ defmodule EctoProfiler.Mnesia do
   end
 
   def init(_) do
-    :mnesia.start()
     :mnesia.create_table(FunctionProfiler, [attributes: [:module_with_function_and_arity, :query_time, :calls]])
     :mnesia.create_table(TraceProfiler, [attributes: [:trace, :module_with_function_and_arity, :query_time, :calls]])
     {:ok, []}

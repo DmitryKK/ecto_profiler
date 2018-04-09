@@ -69,6 +69,12 @@ Project for Ecto DB profiling
     get "/profiling", EctoProfiler.MainController, :show
   ```
 
+  7. EctoProfiler uses Mnesia for storing data, therefore you need to run mnesia in your application. For example, you could run separate proccess where would it:
+
+  ```elixir
+    mnesia.start()
+  ```
+
 Start the application with iex -S mix phoenix.server
 
 Visit http://localhost:4000/profiling
